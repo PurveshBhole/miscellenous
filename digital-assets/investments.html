@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investments - WorthUnzip</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="index.html"><img src="../logo.png" alt="WorthUnzip Logo" class="logo"></a>
+        </header>
+
+        <main>
+            <h1>Manage Your Investments</h1>
+            <p>Select the investment type you want to manage:</p>
+
+            <!-- Dropdown to select investment type -->
+            <div class="dropdown">
+                <select id="investmentDropdown" onchange="showInvestmentDetails()">
+                    <option value="" disabled selected>Select Investment Type</option>
+                    <option value="stocks">Stocks</option>
+                    <option value="mutual-funds">Mutual Funds</option>
+                    <option value="cryptocurrency">Cryptocurrency</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <!-- Section to dynamically load investment details -->
+            <div id="investmentDetails" class="investment-details">
+                <!-- Investment details will be loaded here based on selection -->
+            </div>
+
+        </main>
+
+        <footer>
+            <button onclick="goBack()" class="back-button">← Go Back</button>
+        </footer>
+    </div>
+
+    <script>
+        // Function to load and display investment details based on dropdown selection
+        function showInvestmentDetails() {
+            const investmentType = document.getElementById("investmentDropdown").value;
+            const investmentDetails = document.getElementById('investmentDetails');
+            investmentDetails.innerHTML = ''; // Clear previous content
+
+            // Define content for each investment type
+            let investmentContent = '';
+
+            if (investmentType === 'stocks') {
+                investmentContent = `
+                    <h2>Stocks Investment</h2>
+                    <form>
+                        <input type="text" placeholder="Stock Name" class="input-field" required>
+                        <input type="number" placeholder="Number of Shares" class="input-field" required>
+                        <input type="number" placeholder="Purchase Price per Share" class="input-field" required>
+                        <button type="button" onclick="fetchRealTimeData('stocks')" class="btn">Fetch Real-Time Data</button>
+                    </form>
+                    <div id="realTimeData"></div>
+                `;
+            } else if (investmentType === 'mutual-funds') {
+                investmentContent = `
+                    <h2>Mutual Funds Investment</h2>
+                    <form>
+                        <input type="text" placeholder="Fund Name" class="input-field" required>
+                        <input type="number" placeholder="Amount Invested" class="input-field" required>
+                        <input type="date" class="input-field" required>
+                        <button type="button" onclick="fetchRealTimeData('mutual-funds')" class="btn">Fetch Real-Time Data</button>
+                    </form>
+                    <div id="realTimeData"></div>
+                `;
+            } else if (investmentType === 'cryptocurrency') {
+                investmentContent = `
+                    <h2>Cryptocurrency Investment</h2>
+                    <form>
+                        <input type="text" placeholder="Cryptocurrency Name" class="input-field" required>
+                        <input type="number" placeholder="Amount Invested" class="input-field" required>
+                        <input type="date" class="input-field" required>
+                        <button type="button" onclick="fetchRealTimeData('cryptocurrency')" class="btn">Fetch Real-Time Data</button>
+                    </form>
+                    <div id="realTimeData"></div>
+                `;
+            } else if (investmentType === 'other') {
+                investmentContent = `
+                    <h2>Other Investments</h2>
+                    <form>
+                        <input type="text" placeholder="Investment Name" class="input-field" required>
+                        <input type="number" placeholder="Amount Invested" class="input-field" required>
+                        <input type="date" class="input-field" required>
+                        <button type="button" onclick="fetchRealTimeData('other')" class="btn">Fetch Real-Time Data</button>
+                    </form>
+                    <div id="realTimeData"></div>
+                `;
+            }
+
+            investmentDetails.innerHTML = investmentContent;
+        }
+
+        // Simulate real-time data fetching
+        function fetchRealTimeData(investmentType) {
+            const realTimeDataDiv = document.getElementById("realTimeData");
+            realTimeDataDiv.innerHTML = `<p>Fetching real-time data for ${investmentType}...</p>`;
+
+            // Simulate an API call with a timeout (you can replace this with actual API calls)
+            setTimeout(() => {
+                realTimeDataDiv.innerHTML = `<p>Real-time data for ${investmentType} displayed here.</p>`;
+            }, 2000);
+        }
+
+        // Function to go back
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    <style>
+        .dropdown {
+            margin-bottom: 20px;
+        }
+
+        .dropdown select {
+            padding: 10px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            background-color: #292929;
+            color: #fff;
+            border: none;
+        }
+
+        .investment-details {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #1f1f1f;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .investment-details h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .investment-details form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .investment-details form .input-field {
+            padding: 10px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            background-color: #292929;
+            color: #fff;
+            border: none;
+        }
+
+        .investment-details form .btn {
+            background-color: #007bff;
+            padding: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+            color: white;
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Assets - Insurance</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../index.html"><img src="../logo.png" alt="WorthUnzip Logo" class="logo"></a>
+        </header>
+
+        <main>
+            <h1>Insurance Investments</h1>
+
+            <!-- Form to Add Insurance Details -->
+            <form onsubmit="saveInsurance(event)">
+                <label for="insuranceType">Select Insurance Type:</label>
+                <select id="insuranceType" class="input-field" required>
+                    <option value="" disabled selected>Select Insurance Type</option>
+                    <option value="Health Insurance">Health Insurance</option>
+                    <option value="Life Insurance">Life Insurance</option>
+                    <option value="Vehicle Insurance">Vehicle Insurance</option>
+                    <option value="Home Insurance">Home Insurance</option>
+                </select>
+
+                <input type="text" placeholder="Enter Insurance Provider" class="input-field" id="insuranceProvider" required>
+                <input type="text" placeholder="Enter Policy Number" class="input-field" id="policyNumber" required>
+                <input type="number" placeholder="Enter Premium Amount" class="input-field" id="premiumAmount" required>
+
+                <button type="submit" class="btn">Add Insurance</button>
+            </form>
+
+            <!-- Section to Display Added Insurance List -->
+            <h2>Insurance List</h2>
+            <div id="insuranceList" class="insurance-list"></div>
+        </main>
+
+        <footer>
+            <button onclick="goBack()" class="back-button">← Go Back</button>
+        </footer>
+    </div>
+
+    <script src="../script.js"></script>
+
+    <script>
+        // Function to save insurance details to localStorage
+        function saveInsurance(event) {
+            event.preventDefault();
+
+            const insuranceType = document.getElementById("insuranceType").value;
+            const insuranceProvider = document.getElementById("insuranceProvider").value;
+            const policyNumber = document.getElementById("policyNumber").value;
+            const premiumAmount = document.getElementById("premiumAmount").value;
+
+            const insuranceData = {
+                insuranceType: insuranceType,
+                insuranceProvider: insuranceProvider,
+                policyNumber: policyNumber,
+                premiumAmount: premiumAmount
+            };
+
+            // Retrieve existing insurance data from localStorage or create a new array
+            let insuranceList = JSON.parse(localStorage.getItem('insuranceList')) || [];
+            insuranceList.push(insuranceData);
+
+            // Save the updated insurance list to localStorage
+            localStorage.setItem('insuranceList', JSON.stringify(insuranceList));
+
+            // Update the insurance list display
+            displayInsuranceList();
+
+            // Clear the form fields
+            document.getElementById("insuranceType").value = '';
+            document.getElementById("insuranceProvider").value = '';
+            document.getElementById("policyNumber").value = '';
+            document.getElementById("premiumAmount").value = '';
+
+            alert("Insurance added successfully!");
+        }
+
+        // Function to display the list of insurance from localStorage
+        function displayInsuranceList() {
+            const insuranceList = JSON.parse(localStorage.getItem('insuranceList')) || [];
+            const insuranceListContainer = document.getElementById('insuranceList');
+
+            insuranceListContainer.innerHTML = ''; // Clear the current list
+
+            if (insuranceList.length === 0) {
+                insuranceListContainer.innerHTML = '<p>No insurance added yet.</p>';
+            } else {
+                insuranceList.forEach((insurance, index) => {
+                    insuranceListContainer.innerHTML += `
+                        <div class="insurance-item">
+                            <h3>${insurance.insuranceType}</h3>
+                            <p><strong>Provider:</strong> ${insurance.insuranceProvider}</p>
+                            <p><strong>Policy Number:</strong> ${insurance.policyNumber}</p>
+                            <p><strong>Premium Amount:</strong> $${insurance.premiumAmount}</p>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        // Call displayInsuranceList on page load to display existing insurance items
+        window.onload = displayInsuranceList;
+    </script>
+
+    <style>
+        .insurance-list {
+            margin-top: 20px;
+        }
+
+        .insurance-item {
+            background-color: #1f1f1f;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .insurance-item h3 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .insurance-item p {
+            margin: 5px 0;
+            font-size: 1.1em;
+        }
+    </style>
+</body>
+</html>
