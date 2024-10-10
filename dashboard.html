@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - WorthUnzip</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="index.html"><img src="logo.png" alt="WorthUnzip Logo" class="logo"></a>
+        </header>
+
+        <main>
+            <h1>Welcome to Your Dashboard</h1>
+
+            <div>
+                <h3>Your Investments Overview:</h3>
+                <p><strong>Real Estate Investment:</strong> <span id="realEstateValue">No data</span></p>
+                <p><strong>Gold Investment:</strong> <span id="goldValue">No data</span></p>
+                <p><strong>Bonds Investment:</strong> <span id="bondsValue">No data</span></p>
+            </div>
+
+            <div class="button-group">
+                <a href="physical-asset.html" class="btn">Physical Assets</a>
+                <a href="digital-asset.html" class="btn">Digital Assets</a>
+            </div>
+        </main>
+
+        <footer>
+            <button onclick="goBack()" class="back-button">← Go Back</button>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            try {
+                // Fetch Real Estate Data
+                const realEstateData = JSON.parse(localStorage.getItem('realEstateData'));
+                if (realEstateData && realEstateData.total) {
+                    document.getElementById("realEstateValue").innerText = `$${realEstateData.total.toFixed(2)}`;
+                }
+
+                // Fetch Gold Data
+                const goldData = JSON.parse(localStorage.getItem('goldData'));
+                if (goldData && goldData.total) {
+                    document.getElementById("goldValue").innerText = `$${goldData.total.toFixed(2)}`;
+                }
+
+                // Fetch Bonds Data
+                const bondData = JSON.parse(localStorage.getItem('bondData'));
+                if (bondData && bondData.total) {
+                    document.getElementById("bondsValue").innerText = `$${bondData.total.toFixed(2)}`;
+                }
+            } catch (e) {
+                console.error("localStorage retrieval error:", e);
+                alert("Failed to fetch data. Please check if localStorage is working.");
+            }
+        });
+    </script>
+</body>
+</html>
