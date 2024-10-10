@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate - WorthUnzip</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../index.html"><img src="../logo.png" alt="WorthUnzip Logo" class="logo"></a>
+        </header>
+
+        <main>
+            <h1>Real Estate Investment</h1>
+            <form onsubmit="saveRealEstate(event)">
+                <input type="number" placeholder="Enter Purchase Price" class="input-field" id="realEstatePrice" required>
+                <input type="date" class="input-field" id="purchaseDate" required>
+                <input type="file" accept=".pdf" class="input-field file-upload" id="documentUpload" required>
+
+                <h2>Relationship Manager Details</h2>
+                <input type="text" placeholder="Enter Relationship Manager Name" class="input-field" id="rmName" required>
+                <input type="text" placeholder="Enter Contact Number" class="input-field" id="rmContact" required>
+                <textarea placeholder="Enter Address" class="input-field" id="rmAddress" required></textarea>
+
+                <button type="submit" class="btn">Save Real Estate Investment</button>
+            </form>
+        </main>
+
+        <footer>
+            <button onclick="goBack()" class="back-button">← Go Back</button>
+        </footer>
+    </div>
+
+    <script src="../script.js"></script>
+
+    <script>
+        function saveRealEstate(event) {
+            event.preventDefault();
+            const purchasePrice = document.getElementById("realEstatePrice").value;
+            const purchaseDate = document.getElementById("purchaseDate").value;
+            const documentUpload = document.getElementById("documentUpload").files[0];
+            const rmName = document.getElementById("rmName").value;
+            const rmContact = document.getElementById("rmContact").value;
+            const rmAddress = document.getElementById("rmAddress").value;
+
+            // Check if a document was uploaded
+            if (!documentUpload) {
+                alert("Please upload a document.");
+                return;
+            }
+
+            const realEstateData = {
+                purchasePrice: purchasePrice,
+                purchaseDate: purchaseDate,
+                documentName: documentUpload.name, // Store the file name for reference
+                relationshipManager: {
+                    name: rmName,
+                    contact: rmContact,
+                    address: rmAddress
+                }
+            };
+
+            try {
+                localStorage.setItem('realEstateData', JSON.stringify(realEstateData));
+                alert(`Real Estate Investment of $${purchasePrice} with Relationship Manager saved successfully!`);
+            } catch (e) {
+                console.error("localStorage error:", e);
+                alert("Failed to save data. Please ensure localStorage is enabled.");
+            }
+
+            window.location.href = "../dashboard.html";
+        }
+    </script>
+</body>
+</html>

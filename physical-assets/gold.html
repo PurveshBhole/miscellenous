@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gold Investment - WorthUnzip</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../index.html"><img src="../logo.png" alt="WorthUnzip Logo" class="logo"></a>
+        </header>
+
+        <main>
+            <h1>Gold Investment</h1>
+            <p>Current Gold Price: <span id="goldPriceValue">$0.00</span></p>
+            <form onsubmit="saveGoldInvestment(event)">
+                <input type="number" placeholder="Enter Grams" class="input-field" id="goldGrams" required>
+                <input type="number" placeholder="Price per Gram" class="input-field" id="goldPrice" required>
+                <button type="submit" class="btn">Save Gold Investment</button>
+            </form>
+        </main>
+
+        <footer>
+            <button onclick="goBack()" class="back-button">← Go Back</button>
+        </footer>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+</html>

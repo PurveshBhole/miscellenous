@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonds Investment - WorthUnzip</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../index.html"><img src="../logo.png" alt="WorthUnzip Logo" class="logo"></a>
+        </header>
+
+        <main>
+            <h1>Bonds Investment</h1>
+            <form onsubmit="calculateBonds(event)">
+                <input type="number" placeholder="Enter Bond Amount" class="input-field" id="bondAmount" required>
+                <input type="number" placeholder="Annual Interest Rate (%)" class="input-field" id="interestRate" required>
+                <input type="number" placeholder="Years of Investment" class="input-field" id="yearsInvested" required>
+                <button type="submit" class="btn">Calculate Bonds</button>
+            </form>
+            <p id="bondResult"></p>
+        </main>
+
+        <footer>
+            <button onclick="goBack()" class="back-button">← Go Back</button>
+        </footer>
+    </div>
+
+    <script src="../script.js"></script>
+    <script src="../data.js"></script>
+</body>
+</html>
